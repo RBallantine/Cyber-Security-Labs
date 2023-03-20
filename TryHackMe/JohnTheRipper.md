@@ -8,7 +8,7 @@ For a collection of wordlists visit [SecLists](https://github.com/danielmiessler
 - `john [options] [path to file containing the hash]`
   - e.g. `john --wordlist=rockyou.txt rsa_id`
 ---
-## Identifying Hashes
+## Identifying Hashes `hash-id.py`
 - John generally automatically detects the type of hash used
 - When it can't use [hash-identifier](https://gitlab.com/kalilinux/packages/hash-identifier/-/tree/kali/master)
   - The file can be pulled using `wget https://gitlab.com/kalilinux/packages/hash-identifier/-/raw/kali/master/hash-id.py`
@@ -22,7 +22,7 @@ For a collection of wordlists visit [SecLists](https://github.com/danielmiessler
   - whirlpool
   - nt (Windows Authentication Hash)
 ---
-## /etc/shadow
+## /etc/shadow `unshadow`
 - Location where password hashes are stored
 - Only accessible by the root-user
 - Needs to be combined with `/etc/passwd` file to crack (unshadowing)
@@ -48,5 +48,16 @@ For a collection of wordlists visit [SecLists](https://github.com/danielmiessler
 - Done by prepending the hash with the username it belongs to
   - E.g. `1efee03cdcb96d90ad48ccc7b8666033` would change to `mike:1efee03cdcb96d90ad48ccc7b8666033`
 ---
-## Custom Rules
-
+## Cracking Zipped Folders `zip2john`
+- Convert a zipped file to a hash format that John can understand
+  - `zip2john [options] [zip file] > [output file]`
+  - E.g. `zip2john zipfile.zip > zip_hash.txt`
+- Then feed it into John as before
+  - `john --wordlist=rockyou.txt zip_hash.txt`
+---
+## Cracking Password Protected RAR Files
+- Similar to zip2john, convert the RAR file to a hash format John can understand
+  - `rar2john [rar file] > [output file]`
+  - E.g. `rar2john rarfile.rar > rar_hash.txt`
+- Then feed it into John as before
+  - `john --wordlist=/usr/share/wordlists/rockyou.txt rar_hash.txt`
