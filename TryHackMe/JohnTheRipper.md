@@ -61,3 +61,11 @@ For a collection of wordlists visit [SecLists](https://github.com/danielmiessler
   - E.g. `rar2john rarfile.rar > rar_hash.txt`
 - Then feed it into John as before
   - `john --wordlist=/usr/share/wordlists/rockyou.txt rar_hash.txt`
+
+## Cracking Private SSH Keys `ssh2john`
+- Again, convert the private key to a hash formate John can work with
+  - `ssh2john [options] [zip file] > [output file]` 
+  - Or using the python script `python3 /opt/ssh2john.py [options] [zip file] > [output file]` 
+  - Or on Kali `python /usr/share/john/ssh2john.py [options] [zip file] > [output file]`
+- Now crack as usual
+  - `john --wordlist=rockyou.txt ssh2john_hash.txt`
